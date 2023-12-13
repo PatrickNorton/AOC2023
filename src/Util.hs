@@ -1,4 +1,4 @@
-module Util (number, enumerate, cartProd, taxicab, countOf) where
+module Util (number, enumerate, cartProd, taxicab, countOf, ind) where
 
 import Text.Parsec
 import Text.Parsec.String (Parser)
@@ -19,3 +19,6 @@ taxicab (x, y) (x', y') = abs (x - x') + abs (y - y')
 
 countOf :: (a -> Bool) -> [a] -> Int
 countOf f = length . filter f
+
+ind :: [a] -> [Int]
+ind = map fst . enumerate
