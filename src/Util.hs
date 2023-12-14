@@ -1,4 +1,12 @@
-module Util (number, enumerate, cartProd, taxicab, countOf, ind) where
+module Util ( number
+            , enumerate
+            , cartProd
+            , taxicab
+            , countOf
+            , ind
+            , (<.>)
+            , readLines
+            ) where
 
 import Text.Parsec
 import Text.Parsec.String (Parser)
@@ -22,3 +30,10 @@ countOf f = length . filter f
 
 ind :: [a] -> [Int]
 ind = map fst . enumerate
+
+infixr 9 <.>
+(<.>) :: (Monad m) => (a -> b) -> (c -> m a) -> (c -> m b)
+(f <.> g) a = f <$> g a
+
+readLines :: String -> IO [String]
+readLines = lines <.> readFile
