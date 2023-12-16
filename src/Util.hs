@@ -6,6 +6,8 @@ module Util ( number
             , ind
             , (<.>)
             , readLines
+            , (!!?)
+            , index2d
             ) where
 
 import Text.Parsec
@@ -37,3 +39,12 @@ infixr 9 <.>
 
 readLines :: String -> IO [String]
 readLines = lines <.> readFile
+
+infixr 9 !!?
+(!!?) :: [a] -> Int -> Maybe a
+[] !!? _ = Nothing
+(a:rest) !!? 0 = Just a
+(_:rest) !!? i = rest !!? (i-1)
+
+index2d :: [[a]] -> (Int, Int) -> Maybe a
+index2d a (x, y) = (a !!? x) >>= (!!? y)
