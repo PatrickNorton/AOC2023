@@ -8,8 +8,11 @@ module Util ( number
             , readLines
             , (!!?)
             , index2d
+            , both
+            , bounds
             ) where
 
+import Data.Bifunctor
 import Text.Parsec
 import Text.Parsec.String (Parser)
 
@@ -43,8 +46,14 @@ readLines = lines <.> readFile
 infixr 9 !!?
 (!!?) :: [a] -> Int -> Maybe a
 [] !!? _ = Nothing
-(a:rest) !!? 0 = Just a
+(a:_) !!? 0 = Just a
 (_:rest) !!? i = rest !!? (i-1)
 
 index2d :: [[a]] -> (Int, Int) -> Maybe a
 index2d a (x, y) = (a !!? x) >>= (!!? y)
+
+both :: (Bifunctor t) => (a -> b) -> t a a -> t b b
+both f = bimap f f
+
+bounds :: [[a]] -> (Int, Int)
+bounds g = (length g, length $ head g)
