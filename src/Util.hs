@@ -1,4 +1,5 @@
 module Util ( number
+            , hexnum
             , enumerate
             , cartProd
             , taxicab
@@ -13,6 +14,7 @@ module Util ( number
             ) where
 
 import Data.Bifunctor
+import Numeric
 import Text.Parsec
 import Text.Parsec.String (Parser)
 
@@ -20,6 +22,11 @@ number :: (Integral a) => (Read a) => Parser a
 number = do
   digits <- many1 digit
   return $ read digits
+
+hexnum :: (Eq a, Num a) => Parser a
+hexnum = do
+  digits <- many1 hexDigit
+  return . fst . head $ readHex digits
 
 enumerate :: [a] -> [(Int, a)]
 enumerate = zip [0..]
