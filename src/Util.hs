@@ -11,6 +11,7 @@ module Util ( number
             , index2d
             , both
             , bounds
+            , replaceAssoc
             ) where
 
 import Data.Bifunctor
@@ -64,3 +65,8 @@ both f = bimap f f
 
 bounds :: [[a]] -> (Int, Int)
 bounds g = (length g, length $ head g)
+
+replaceAssoc :: (Eq a) => [(a, b)] -> a -> b -> [(a, b)]
+replaceAssoc [] _ _ = []
+replaceAssoc ((a, b):rest) a' b' | a == a' = (a', b'):rest
+                                 | otherwise = (a, b):replaceAssoc rest a' b'
