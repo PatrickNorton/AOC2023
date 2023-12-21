@@ -9,6 +9,7 @@ module Util ( number
             , readLines
             , (!!?)
             , index2d
+            , wrapIndex2d
             , both
             , bounds
             , replaceAssoc
@@ -59,6 +60,11 @@ infixr 9 !!?
 
 index2d :: [[a]] -> (Int, Int) -> Maybe a
 index2d a (x, y) = (a !!? x) >>= (!!? y)
+
+wrapIndex2d :: [[a]] -> (Int, Int) -> a
+wrapIndex2d a (x, y) = (a !! (x `mod` n)) !! (y `mod` m)
+  where n = length a
+        m = length $ head a
 
 both :: (Bifunctor t) => (a -> b) -> t a a -> t b b
 both f = bimap f f
