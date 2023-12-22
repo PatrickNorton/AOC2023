@@ -13,6 +13,7 @@ module Util ( number
             , both
             , bounds
             , replaceAssoc
+            , exceptIndex
             ) where
 
 import Data.Bifunctor
@@ -76,3 +77,8 @@ replaceAssoc :: (Eq a) => [(a, b)] -> a -> b -> [(a, b)]
 replaceAssoc [] _ _ = []
 replaceAssoc ((a, b):rest) a' b' | a == a' = (a', b'):rest
                                  | otherwise = (a, b):replaceAssoc rest a' b'
+
+exceptIndex :: Int -> [a] -> [a]
+exceptIndex _ [] = []
+exceptIndex 0 (_:rest) = rest
+exceptIndex i (a:rest) = a : exceptIndex (i - 1) rest
