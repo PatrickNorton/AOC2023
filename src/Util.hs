@@ -1,7 +1,9 @@
 module Util ( number
             , hexnum
+            , signed
             , enumerate
             , cartProd
+            , cartSq
             , taxicab
             , countOf
             , ind
@@ -31,11 +33,20 @@ hexnum = do
   digits <- many1 hexDigit
   return . fst . head $ readHex digits
 
+signed :: (Integral a) => (Read a) => Parser a
+signed = do
+  char '-' *> (negate <$> number)
+  <|> (char '+' *> number)
+  <|> number
+
 enumerate :: [a] -> [(Int, a)]
 enumerate = zip [0..]
 
 cartProd :: [a] -> [b] -> [(a, b)]
 cartProd xs ys = [(x,y) | x <- xs, y <- ys]
+
+cartSq :: [a] -> [(a, a)]
+cartSq v = cartProd v v
 
 taxicab :: (Int, Int) -> (Int, Int) -> Int
 taxicab (x, y) (x', y') = abs (x - x') + abs (y - y')

@@ -681,3 +681,33 @@ executable day23
 
     -- Base language which the package is written in.
     default-language: Haskell2010
+
+executable day24
+    -- Import common warning flags.
+    import:           warnings
+
+    -- .hs or .lhs file containing the Main module.
+    main-is:          Day24.hs
+
+    -- Modules included in this executable, other than Main.
+    other-modules:    Paths_AOC2023_hs
+
+    -- LANGUAGE extensions used by modules in this package.
+    -- other-extensions:
+
+    -- Other library packages from which modules are imported.
+    build-depends:
+                  AOC2023-hs,
+                  base ^>=4.16.4.0,
+                  containers ^>=0.7,
+                  heap ^>=1.0.0,
+                  matrix ^>=0.3.6.0,
+                  mtl ^>=2.3.0,
+                  parsec ^>=3.1.17.0,
+                  vector ^>=0.13.1.0
+
+    -- Directories containing source files.
+    hs-source-dirs:   app
+
+    -- Base language which the package is written in.
+    default-language: Haskell2010
